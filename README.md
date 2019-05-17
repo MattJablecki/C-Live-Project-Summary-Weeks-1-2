@@ -26,65 +26,65 @@ When I joined the project, there were existing "dummy users" to test functionali
 
 A partial view was used because this list was to be populated in the admin dashboard, not its own dedicated page. By setting the model type with Razor at the top of the page, I was able to use Html helpers to add "DisplayNameFor" and "DisplayFor" for all the elements of the users in the database. A foreach loop captured all the users and the partial view was populated.
 
-'''
-@model IEnumerable<ConstructionNew.Models.ApplicationUser>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.WorkType)
-        </th>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FName)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.LName)
-            </td>
-            <td>
-                @using (Html.BeginForm("EditWork", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                {
-                    @Html.Hidden("Id", item.Id)
-                    @Html.DropDownList("workType", new SelectList(Enum.GetValues(typeof(ConstructionNew.Enums.WorkType))),                                  item.WorkType.ToString())
-                    <input type="submit" value="Submit" onclick="" />
-                }
-            </td>
-            <td>
-                @using (Html.BeginForm("EditRole", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                {
-                    @Html.Hidden("Id", item.Id)
-                    @Html.DropDownList("UserRole", new List<SelectListItem>
-                    {
-                        new SelectListItem { Text = "Admin", Value = "Admin"},
-                        new SelectListItem { Text = "Manager", Value = "Manager"},
-                        new SelectListItem { Text = "Employee", Value = "Employee"}
-                    }, item.UserRole)
-                    <input type="submit" value="Submit" onclick="" />}
-            </td>
-            <td>@Html.ActionLink("Delete User", "Delete", new { id = item.Id })</td>
-        </tr>
-    }
 
-</table>
-'''
+    @model IEnumerable<ConstructionNew.Models.ApplicationUser>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkType)
+            </th>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.LName)
+                </td>
+                <td>
+                    @using (Html.BeginForm("EditWork", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.Hidden("Id", item.Id)
+                        @Html.DropDownList("workType", new SelectList(Enum.GetValues(typeof(ConstructionNew.Enums.WorkType))),                                  item.WorkType.ToString())
+                        <input type="submit" value="Submit" onclick="" />
+                    }
+                </td>
+                <td>
+                    @using (Html.BeginForm("EditRole", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.Hidden("Id", item.Id)
+                        @Html.DropDownList("UserRole", new List<SelectListItem>
+                        {
+                            new SelectListItem { Text = "Admin", Value = "Admin"},
+                            new SelectListItem { Text = "Manager", Value = "Manager"},
+                            new SelectListItem { Text = "Employee", Value = "Employee"}
+                        }, item.UserRole)
+                        <input type="submit" value="Submit" onclick="" />}
+                </td>
+                <td>@Html.ActionLink("Delete User", "Delete", new { id = item.Id })</td>
+            </tr>
+        }
+
+    </table>
+
 
 The last part of this task was to enable a delete function for the admin which would allow a user to be deleted and removed from the database directly from the user list. The delete function was called with an action link:
-'''
-@Html.ActionLink("Delete User", "Delete", new { id = item.Id })</td>
-'''
+
+      @Html.ActionLink("Delete User", "Delete", new { id = item.Id })</td>
+
 and the delete method itself was written as such:
 
         public ActionResult Delete(string id)
