@@ -1,4 +1,4 @@
-# C-Live-Project-Summary-Weeks-1-2
+# C-Sharp-Live-Project-Summary-Weeks-1-2
 
 ## Introduction
 During my time at The Tech Academy, I was assigned to a two-week sprint working on software to be used as a way to "manage a collection of construction jobs. Admins will be able to create and distribute a weekly schedule assigning users to certain jobs. Users will be able to keep track of which job they are assigned to for the week. There will also be the ability for admins to post company news and announcements, and chat functionality for the users to socialize."
